@@ -2,9 +2,9 @@ class PlannersController < ApplicationController
     skip_before_action :authorized, only: :create
 
     def create
-        planner = Planner.create!(user_params)
-        session[:planner_id] = planner.id
-        render json: planner, status: :created
+        user = User.create!(planner_params)
+        session[:user_id] = user.id
+        render json: user, status: :created
     end
 
     def show
@@ -14,7 +14,7 @@ class PlannersController < ApplicationController
 
     private
 
-    def user_params
-        params.permit(:username, :password, :password_confirmation, :image_url, :bio, :location)
+    def client_params
+        params.permit(:username, :password, :password_confirmation, :image_url, :bio, :commpany)
     end
 end
